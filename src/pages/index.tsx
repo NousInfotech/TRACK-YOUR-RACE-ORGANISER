@@ -1,0 +1,78 @@
+import { useAuthState } from "@/context/auth";
+import {
+  forget_password_path,
+  home_path,
+  login_path,
+  root_path,
+  signup_path,
+  update_password_path,
+} from "@/data/path";
+import React from "react";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Home from "./session/home";
+import Login from "./auth/login";
+import AlertDialogComponent from "@/components/cui/c-alert-dialong";
+import { useLogoutMutation } from "@/api/session";
+import { useQueryClient } from "@tanstack/react-query";
+import { showToast } from "@/components/cui/etoast";
+import Signup from "./auth/signup";
+import ForgetPassword from "./auth/forget-password";
+import UpdatePassword from "./auth/update-password";
+
+function index() {
+  const queryClient = useQueryClient();
+  const { auth, setAuth, showLogoutModal, onToggleLogoutModal } =
+    useAuthState();
+
+  const logoutMutationFn = useLogoutMutation({
+    onSuccess: () => {
+      queryClient.removeQueries();
+      setAuth(false);
+    },
+    onError: () => {
+      showToast({
+        type: "error",
+        title: "Unable to logout",
+        description: "Please clear your cache",
+      });
+    },
+  });
+
+  if (!auth) {
+    return (
+      <Router>
+        <Routes>
+          <Route path={login_path} element={<Login />} />
+          <Route path={signup_path} element={<Signup />} />
+          <Route path={forget_password_path} element={<ForgetPassword />} />
+          <Route path={update_password_path} element={<UpdatePassword />} />
+          <Route path={root_path} element={<Navigate to={login_path} />} />
+        </Routes>
+      </Router>
+    );
+  }
+  return (
+    <Router>
+      <AlertDialogComponent
+        onClick={logoutMutationFn.mutate}
+        open={showLogoutModal}
+        title="Logout"
+        description="Are you sure you want to logout?"
+        actionText="Logout"
+        onToggle={onToggleLogoutModal}
+      />
+      <Routes>
+        <Route path={`${home_path}/*`} element={<Home />} />
+        <Route path={root_path} element={<Navigate to={home_path} />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default index;
