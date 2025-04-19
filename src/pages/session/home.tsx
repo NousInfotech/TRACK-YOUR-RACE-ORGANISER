@@ -7,6 +7,7 @@ function Home() {
     <HomeWrapper>
       <Routes>
         <Route path={home_path}>{/* Your app routes go here */}</Route>
+        
       </Routes>
     </HomeWrapper>
   );

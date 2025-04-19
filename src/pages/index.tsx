@@ -1,11 +1,13 @@
 import { useAuthState } from "@/context/auth";
 import {
+  dashboard_path,
   forget_password_path,
   home_path,
   login_path,
   root_path,
   signup_path,
   update_password_path,
+  user_path,
 } from "@/data/path";
 import React from "react";
 
@@ -24,6 +26,10 @@ import { showToast } from "@/components/cui/etoast";
 import Signup from "./auth/signup";
 import ForgetPassword from "./auth/forget-password";
 import UpdatePassword from "./auth/update-password";
+// import { AppSidebar } from "@/components/customcomponent/sidebarcomp";
+import DashboardComp from "@/components/customcomponent/DashboardComp";
+import TopBar from "@/components/customcomponent/topmenu";
+import UserComponent from "@/components/customcomponent/UserComponent";
 
 function index() {
   const queryClient = useQueryClient();
@@ -53,6 +59,8 @@ function index() {
           <Route path={forget_password_path} element={<ForgetPassword />} />
           <Route path={update_password_path} element={<UpdatePassword />} />
           <Route path={root_path} element={<Navigate to={login_path} />} />
+          <Route path={dashboard_path} element={<DashboardComp/>} />
+          <Route path={user_path} element={<UserComponent />} />
         </Routes>
       </Router>
     );

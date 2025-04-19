@@ -9,3 +9,4 @@ export const root_path = "/";
 export const dashboard_path = "/dashboard";
 export const pages_path = "/pages";
 export const pages_path_1 = "/pages_1";
+export const user_path = "/user";

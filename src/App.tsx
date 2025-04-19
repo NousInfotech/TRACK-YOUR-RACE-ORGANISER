@@ -1,3 +1,4 @@
+import { SidebarProvider } from "./components/ui/sidebar";
 import { Toaster } from "./components/ui/sonner";
 import { ThemeProvider } from "./context/theme-provider";
 import Pages from "@/pages";
@@ -5,10 +6,12 @@ import Pages from "@/pages";
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <div className="h-screen overflow-clip">
-        <Toaster />
-        <Pages />
-      </div>
+      <SidebarProvider>
+        <div className="h-screen overflow-clip">
+          <Toaster />
+          <Pages />
+        </div>
+      </SidebarProvider>
     </ThemeProvider>
   );
 }
