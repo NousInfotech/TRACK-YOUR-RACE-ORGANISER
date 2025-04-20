@@ -10,3 +10,6 @@ export const dashboard_path = "/dashboard";
 export const pages_path = "/pages";
 export const pages_path_1 = "/pages_1";
 export const user_path = "/user";
+export const event_path = "/event";
+export const service_path = "/service";
+export const bookings_path = "/bookings";

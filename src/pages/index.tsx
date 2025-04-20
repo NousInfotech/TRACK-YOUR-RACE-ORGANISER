@@ -1,10 +1,13 @@
 import { useAuthState } from "@/context/auth";
 import {
+  bookings_path,
   dashboard_path,
+  event_path,
   forget_password_path,
   home_path,
   login_path,
   root_path,
+  service_path,
   signup_path,
   update_password_path,
   user_path,
@@ -30,6 +33,9 @@ import UpdatePassword from "./auth/update-password";
 import DashboardComp from "@/components/customcomponent/DashboardComp";
 import TopBar from "@/components/customcomponent/topmenu";
 import UserComponent from "@/components/customcomponent/UserComponent";
+import EventComponent from "@/components/customcomponent/EventComponent";
+import ServiceComponent from "@/components/customcomponent/ServiceComponent";
+import BookingComponent from "@/components/customcomponent/BookingComponent";
 
 function index() {
   const queryClient = useQueryClient();
@@ -61,6 +67,9 @@ function index() {
           <Route path={root_path} element={<Navigate to={login_path} />} />
           <Route path={dashboard_path} element={<DashboardComp/>} />
           <Route path={user_path} element={<UserComponent />} />
+          <Route path={event_path} element={<EventComponent />} />
+          <Route path={service_path} element={<ServiceComponent />} />
+          <Route path={bookings_path} element={<BookingComponent />} />
         </Routes>
       </Router>
     );
